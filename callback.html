@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>Motion Publisher · Sign-in</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+  <h1>Finishing sign-in…</h1>
+  <p id="msg" class="muted">Returning to Motion Publisher on this computer.</p>
+</main>
+<script>
+  // Instagram only accepts https redirect addresses. This page hands the sign-in code straight
+  // back to Motion Publisher running on the owner's own computer; nothing is stored or sent elsewhere.
+  var params = new URLSearchParams(location.search);
+  if (/^ig\.[a-f0-9]{32}$/.test(params.get('state') || '')) {
+    location.replace('http://127.0.0.1:3002/auth/instagram/callback' + location.search);
+  } else {
+    document.getElementById('msg').textContent = 'This link is only used to finish signing in to Motion Publisher.';
+  }
+</script>
+</body>
+</html>
